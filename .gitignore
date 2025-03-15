@@ -1,0 +1,16 @@
+__pycache__/*
+*.pyc
+*.pyo
+*.log
+*.tmp
+*.swp
+*.egg
+*.egg-info
+*.dist
+*.build
+*.cache
+*.DS_Store
+*.iml
+*.idea/
+venv*/
+results/
