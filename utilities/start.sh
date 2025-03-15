@@ -1,6 +1,6 @@
 #!/bin/bash
 
-AWS_PROFILE="DSIS_Dev_Russellc"
+AWS_PROFILE="DSIS_Dev_Russellc" # replace this with a profile name from your ~/.aws/config file
 MIN_PYTHON="0312"
 VENV="venv$MIN_PYTHON"
 
@@ -71,7 +71,7 @@ echo "."
 export AWS_PROFILE=$AWS_PROFILE
 aws sso login --profile $AWS_PROFILE
 
-# allow user to add temporary credentials
+# remind user to add temporary credentials
 echo "copy the comand block from the access portal > account > role > access keys > option 1"
 sleep 10
 echo " then paste the block here:"

@@ -116,7 +116,7 @@ def log_boto_client_error(error) -> None:
     logger.exception('[%s] %s.\n\tError message: %s', error_code, error_help_string, error.response['Error']['Message'])
 
 
-def build_item(given: dict):
+def build_item(given: dict) -> dict:
     global logger
     item: dict = None
 
@@ -195,7 +195,7 @@ async def load_from_csv() -> int:
     return item_count
 
 
-async def main():
+async def main() -> None:
     global args, dynamodb, logger
 
     args = parse_arguments()
@@ -206,10 +206,11 @@ async def main():
     results_file = RESULT_DIR + 'load_dynamodb_lms_' + dt.datetime.now().strftime('%Y%m%d%H%M') + '.txt'
     # end of optional block
 
+    # set logging
     logging.basicConfig(
         format='%(asctime)s %(levelname)s: %(message)s',
         handlers=[
-            logging.FileHandler(filename=results_file, mode='a'),
+            logging.FileHandler(filename=results_file, mode='a'),  # this line can be removed w results file block
             logging.StreamHandler(sys.stdout)
         ]
     )
@@ -219,10 +220,12 @@ async def main():
     else:
         logger.setLevel(logging.INFO)
 
+    # begin
     start_time = time.time()
     logger.info('Started')
 
     try:
+        # create a durable aws session
         stack = contextlib.AsyncExitStack()
         data_session = aioboto3.Session(
             aws_access_key_id=os.environ['AWS_ACCESS_KEY_ID'],
